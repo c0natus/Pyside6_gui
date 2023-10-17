@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import sys
 import json
@@ -30,7 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def click_save_arg(self):
         # 전처리에 사용한 인자들을 저장한다.
         self.update_args()
-        with open(f'{self.args["dataset"]}/log/args.json', 'w') as f:
+        with open(f'args.json', 'w') as f:
             json.dump(self.args, f)
 
     def click_browse_file(self):
@@ -39,6 +41,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         file_path, _ = QFileDialog.getOpenFileName(self, "파일 불러오기", "", "모든 파일 (*)", options=options)
         
         if file_path:
+            self.args['dataset_path'] = file_path
             file_name = file_path.split('/')[-1]
             extention_index = file_name.rfind('.')
             file_name_without_extention = file_name[:extention_index]
@@ -97,7 +100,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 def main():
     app = QApplication()
-    file_path_args = './LearningSet01/log/args.json'
+    file_path_args = 'args.json'
     window = MainWindow(args_path=file_path_args)
     window.show()
     sys.exit(app.exec())

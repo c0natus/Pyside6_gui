@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 import argparse
 from pathlib import Path
@@ -56,8 +58,12 @@ class PreprocessThread(QThread):
         ##old code
         ##df_input = pd.read_excel(f'data/{self.args["filename"]}.xlsx', sheet_name=self.args["sheet_input"]).iloc[:, col_input:]
         ##df_output = pd.read_excel(f'data/{self.args["filename"]}.xlsx', sheet_name=self.args["sheet_output"]).iloc[:, col_output:]
-        df_input = pd.read_excel(f'data/{self.args["filename"]}.xlsx', sheet_name=self.args["sheet_input"], engine='openpyxl').iloc[:, col_input:]
-        df_output = pd.read_excel(f'data/{self.args["filename"]}.xlsx', sheet_name=self.args["sheet_output"], engine='openpyxl').iloc[:, col_output:]
+        # df_input = pd.read_excel(f'data/{self.args["filename"]}.xlsx', sheet_name=self.args["sheet_input"], engine='openpyxl').iloc[:, col_input:]
+        # df_output = pd.read_excel(f'data/{self.args["filename"]}.xlsx', sheet_name=self.args["sheet_output"], engine='openpyxl').iloc[:, col_output:]
+
+        # Browse file로 찾은 절대 경로를 사용
+        df_input = pd.read_excel(f'{self.args["dataset_path"]}', sheet_name=self.args["sheet_input"], engine='openpyxl').iloc[:, col_input:]
+        df_output = pd.read_excel(f'{self.args["dataset_path"]}', sheet_name=self.args["sheet_output"], engine='openpyxl').iloc[:, col_output:]
         df = pd.concat([df_input, df_output], axis=1).dropna()  # 값이 없는 행을 제거한다.
 
         print(f'>>Input shape: {df_input.shape}')
