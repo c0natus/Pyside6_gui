@@ -164,4 +164,6 @@ build/
 *.exe
 *.build/
 *.dist/
-LearningSet01
+LearningSet01/
+backup/
+test_dist/

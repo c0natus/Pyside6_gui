@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>847</width>
-    <height>520</height>
+    <width>793</width>
+    <height>703</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>793</width>
+    <height>703</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -19,8 +25,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>821</width>
-      <height>501</height>
+      <width>771</width>
+      <height>351</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -30,52 +36,18 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
      </property>
      <attribute name="title">
       <string>Preprocess</string>
      </attribute>
-     <widget class="QLabel" name="label_start_column_output">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>180</y>
-        <width>151</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>start_column_output</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_sheet_output">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>100</y>
-        <width>151</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>sheet_output</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_start_column_input">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>140</y>
-        <width>151</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>start_column_input</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_filename">
+     <widget class="QLabel" name="preprocess_label_filename">
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -88,24 +60,11 @@
        <string>Filename</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_sheet_input">
+     <widget class="QPushButton" name="preprocess_pushButton_save_arg">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>60</y>
-        <width>151</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>sheet_input</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_save_arg">
-      <property name="geometry">
-       <rect>
-        <x>320</x>
-        <y>430</y>
+        <x>520</x>
+        <y>290</y>
         <width>101</width>
         <height>24</height>
        </rect>
@@ -114,7 +73,7 @@
        <string>Save arguments</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_filename">
+     <widget class="QLineEdit" name="preprocess_lineEdit_filename">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -124,17 +83,33 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_sheet_input">
+     <widget class="QPushButton" name="preprocess_pushButton_run">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>630</x>
+        <y>290</y>
+        <width>101</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Run</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="preprocess_label_outlier_detector">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
         <y>60</y>
-        <width>113</width>
+        <width>151</width>
         <height>21</height>
        </rect>
       </property>
+      <property name="text">
+       <string>outlier_detector</string>
+      </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_sheet_output">
+     <widget class="QLineEdit" name="preprocess_lineEdit_outlier_detector_param">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -144,7 +119,20 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_start_column_input">
+     <widget class="QLabel" name="preprocess_label_outlier_detector_param">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>100</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>outlier_detector_param</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="preprocess_lineEdit_train_size">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -154,7 +142,33 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_start_column_output">
+     <widget class="QLabel" name="preprocess_label_train_size">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>140</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>train_size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="preprocess_label_num_splits">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>180</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>num_splits</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="preprocess_lineEdit_num_splits">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -164,142 +178,72 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_browse_file">
+     <widget class="QComboBox" name="preprocess_comboBox_outlier_detector">
       <property name="geometry">
        <rect>
-        <x>340</x>
+        <x>210</x>
+        <y>60</y>
+        <width>111</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Mean</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Median</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>IF</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="train">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <attribute name="title">
+      <string>Train</string>
+     </attribute>
+     <widget class="QLabel" name="train_label_quiet">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
         <y>20</y>
-        <width>81</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Browse file</string>
-      </property>
-      <property name="autoRepeatDelay">
-       <number>301</number>
-      </property>
-     </widget>
-     <widget class="QTextBrowser" name="textBrowser_results">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>20</y>
-        <width>331</width>
-        <height>371</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_run">
-      <property name="geometry">
-       <rect>
-        <x>690</x>
-        <y>430</y>
-        <width>101</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Run</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_outlier_detector">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>220</y>
-        <width>113</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_outlier_detector">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>220</y>
         <width>151</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>outlier_detector</string>
+       <string>quiet</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_outlier_detector_param">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>260</y>
-        <width>113</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_outlier_detector_param">
+     <widget class="QLabel" name="train_label_cuda">
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>260</y>
+        <y>60</y>
         <width>151</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>outlier_detector_param</string>
+       <string>cuda</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_train_size">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>300</y>
-        <width>113</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_train_size">
+     <widget class="QLabel" name="train_label_dataset">
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>300</y>
-        <width>151</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>train_size</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_num_splits">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>340</y>
-        <width>151</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>num_splits</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_num_splits">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>340</y>
-        <width>113</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_dataset">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>380</y>
+        <y>100</y>
         <width>151</width>
         <height>21</height>
        </rect>
@@ -308,32 +252,506 @@
        <string>dataset</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_dataset">
+     <widget class="QLabel" name="train_label_split_id">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>140</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>split_id</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_train_size">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>180</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>train_size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_batch_size">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>220</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>batch_size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_model">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>260</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>model</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_num_hidden_layers">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>20</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>num_hidden_layers</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_hidden_size">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>60</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>hidden_size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_dropout">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>100</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>dropout</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_learning_rate">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>140</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>learning_rate</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_weight_decay">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>180</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>weight_decay</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_num_epochs">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>220</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>num_epochs</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_cuda">
       <property name="geometry">
        <rect>
         <x>210</x>
-        <y>380</y>
+        <y>60</y>
         <width>113</width>
         <height>21</height>
        </rect>
       </property>
      </widget>
+     <widget class="QLineEdit" name="train_lineEdit_dataset">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>100</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_split_id">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>140</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_train_size">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>180</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_batch_size">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>220</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_num_hidden_layers">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>20</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_hidden_size">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>60</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_dropout">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>100</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_learning_rate">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>140</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_weight_decay">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>180</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="train_lineEdit_num_epochs">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>220</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="train_checkbox_quiet">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>20</y>
+        <width>76</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="train_comboBox_model">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>260</y>
+        <width>111</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>MLP</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ResNet</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Transformer</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="train_pushButton_save_arg">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>290</y>
+        <width>101</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save arguments</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="train_pushButton_run">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>290</y>
+        <width>101</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Run</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="train_label_quiet_description">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>18</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Check if True</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="menu2">
+    <widget class="QWidget" name="test">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
      <attribute name="title">
-      <string>Menu2</string>
+      <string>Test</string>
      </attribute>
+     <widget class="QLabel" name="test_label_cuda">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>cuda</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="test_lineEdit_cuda">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>20</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="test_label_dataset">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>60</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>dataset</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="test_lineEdit_dataset">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>60</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="test_label_split_id">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>100</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>split_id</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="test_lineEdit_split_id">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>100</y>
+        <width>113</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="test_label_model">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>140</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>model</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="test_pushButton_run">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>290</y>
+        <width>101</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Run</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="test_pushButton_save_arg">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>290</y>
+        <width>101</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save arguments</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="test_comboBox_model">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>140</y>
+        <width>111</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>MLP</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ResNet</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Transformer</string>
+       </property>
+      </item>
+     </widget>
     </widget>
-    <widget class="QWidget" name="menu3">
-     <attribute name="title">
-      <string>Menu3</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="menu4">
-     <attribute name="title">
-      <string>Menu4</string>
-     </attribute>
-    </widget>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser_log">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>420</y>
+      <width>771</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustIgnored</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_clear_log">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>380</y>
+      <width>101</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clear log</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_logging_browser">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>380</y>
+      <width>151</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Logging Browser</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

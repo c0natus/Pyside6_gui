@@ -1,0 +1,35 @@
+{
+    "preprocess": {
+        "filename": "data/LearningSet01",
+        "sheet_input": "Input",
+        "sheet_output": "Output",
+        "start_column_input": "C",
+        "start_column_output": "A",
+        "outlier_detector": "IF",
+        "outlier_detector_param": 0.01,
+        "train_size": 0.8,
+        "num_splits": 1,
+        "dataset": "LearningSet01"
+    },
+    "train": {
+        "quiet": "False",
+        "cuda": 0,
+        "dataset": "LearningSet01",
+        "split_id": 0,
+        "train_size": 1.0,
+        "batch_size": 1024,
+        "model": "ResNet",
+        "num_hidden_layers": 3,
+        "dropout": 0.2,
+        "hidden_size": 512,
+        "learning_rate": 0.001,
+        "weight_decay": 5e-06,
+        "num_epochs": 200
+    },
+    "test": {
+        "cuda": 0,
+        "dataset": "LearningSet01",
+        "split_id": 0,
+        "model": "ResNet"
+    }
+}
