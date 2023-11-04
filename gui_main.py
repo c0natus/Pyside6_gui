@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import sys
-import json
+
+import os, sys, re, json, types
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PySide6.QtCore import Qt
@@ -13,51 +13,57 @@ from gui_threads import PreprocessThread, TrainThread, TestThread
 import argparse
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, args_path, *args, obj=None, **kwargs):
+    def __init__(self, cur_path, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         
         ### Args part ###
         self.setupUi(self) # qt designer로 만든 UI 적용
         self.set_validator() # 각 parameter 입력 값 type에 관한 validation 설정
-        self.args = self.read_arguments(args_path) # 저장된 argument 값을 불러온다.
-        self.set_args_edit() # 불러온 값을 UI에 적용시킨다.
+        self.args = self.read_arguments(os.path.join(cur_path, 'saved_args.json')) # 저장된 argument 값을 불러온다.
+        self.set_args_edit() # 불러온 argument값을 UI로 보여준다.
 
         ### Log part ###
-        self.scroll_bottom = True
-        self.pushButton_clear_log.clicked.connect(self.click_clear_log) 
-        # Clear log 버튼 클릭 시 brwoser 내용 다 지움.
-        self.textBrowser_log.verticalScrollBar().valueChanged.connect(self.on_scrollbar_value_changed)
+        self.pushButton_clear_log.clicked.connect(self.click_clear_log) # Clear log 버튼을 클릭하면, click_clear_log를 실행시킨다.
+        self.scroll_bottom = True # True: TextBrowser를 스크롤을 제일 아래로 내린다.
+        self.textBrowser_log.verticalScrollBar().valueChanged.connect(self.on_scrollbar_value_changed) 
+        # 스크롤을 통해 log를 보여주는 부분이 변경될 때, on_scrollbar_value_changed를 실행시킨다.
 
         ### Preprocess Tab ###
-        self.preprocess_pushButton_save_arg.clicked.connect(self.click_save_arg)
-        self.preprocess_pushButton_run.clicked.connect(self.click_preprocess_run)
-        self.preprocess_thraed = PreprocessThread(self.args['preprocess'])
-        self.preprocess_thraed.run_signal.connect(self.update_run_log)
-        self.preprocess_thraed.finished_signal.connect(self.enable_preprocess_run_button)
+        self.preprocess_pushButton_save_arg.clicked.connect(self.click_save_arg) # Preprocess tab에서 save arg를 클릭하면 click_save_arg를 실행시킨다.
+        self.preprocess_pushButton_run.clicked.connect(self.click_preprocess_run) # run을 클릭하면 click_preprocess_run을 실행시킨다.
+        self.preprocess_thraed = PreprocessThread( # Proprocess Thread를 선언한다.
+            args=self.args['preprocess'],
+            cur_path=cur_path)
+        self.preprocess_thraed.run_signal.connect(self.write_log) # thread에서 run_signal이 오면 write_log func을 실행시킨다.
+        self.preprocess_thraed.finished_signal.connect(self.enable_preprocess_run_button) # thread에서 finished_signal이 오면 enable_preprocess_run_button을 실행시킨다.
 
         ### Train Tab ###
         self.train_pushButton_save_arg.clicked.connect(self.click_save_arg)
         self.train_pushButton_run.clicked.connect(self.click_train_run)
-        self.train_thread = TrainThread(self.args['train'])
-        self.train_thread.run_signal.connect(self.update_run_log)
+        self.train_thread = TrainThread(
+            args=self.args['train'],
+            cur_path=cur_path)
+        self.train_thread.run_signal.connect(self.write_log)
         self.train_thread.finished_signal.connect(self.enable_train_run_button)
 
         ### Test Tab ###
         self.test_pushButton_save_arg.clicked.connect(self.click_save_arg)
         self.test_pushButton_run.clicked.connect(self.click_test_run)
-        self.test_thread = TestThread(self.args['test'])
-        self.test_thread.run_signal.connect(self.update_run_log)
+        self.test_thread = TestThread(
+            args=self.args['test'],
+            cur_path=cur_path)
+        self.test_thread.run_signal.connect(self.write_log)
         self.test_thread.finished_signal.connect(self.enable_test_run_button)
 
     ### Preprocess function ####
     def click_preprocess_run(self):
-        self.preprocess_pushButton_run.setEnabled(False)
-        self.update_preprocess_args()
-        self.preprocess_thraed.args = self.args['preprocess']
-        self.preprocess_thraed.start()
+        self.preprocess_pushButton_run.setEnabled(False) # run 버튼을 비활성화 한다.
+        self.update_preprocess_args() # UI로 설정한 값으로 변수를 설정한다.
+        self.preprocess_thraed.args = self.args['preprocess'] # 설정된 값을 thread로 전달한다.
+        self.preprocess_thraed.start() # Thread를 실행시킨다.
 
     def enable_preprocess_run_button(self):
-        self.preprocess_pushButton_run.setEnabled(True)
+        self.preprocess_pushButton_run.setEnabled(True) # run 버튼을 활성화 한다.
     
     def update_preprocess_args(self):
         # save argument와 run을 눌렀을 때, 먼저 args 값들을 update해준다.
@@ -120,19 +126,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if value == self.textBrowser_log.verticalScrollBar().maximum(): self.scroll_bottom = True
         else: self.scroll_bottom = False
 
-    def update_run_log(self, text, color):
-        self.textBrowser_log.setTextColor(color)
-        self.textBrowser_log.insertPlainText(text)
+    def write_log(self, text, color):
+        # Log를 출력한다.
+        self.textBrowser_log.setTextColor(color) # 일반적은 print문은 검은색으로 error는 빨간색으로 보여준다.
+        text = re.sub(r"\w+\\\\|C:\\\\", "", text) # 절대값 경로를 없애서 print한다.
+        self.textBrowser_log.insertPlainText(text) # Log를 UI 상으로 보여준다.
         if self.scroll_bottom is True: # 스크롤바가 항상 제일 아래에 가 있도록 한다.
             self.textBrowser_log.verticalScrollBar().setValue(self.textBrowser_log.verticalScrollBar().maximum())
     
     def click_clear_log(self):
-        self.textBrowser_log.clear()
+        self.textBrowser_log.clear() # Log 창에 출력된 값들을 지운다.
     ################
 
     ### Args part ###
     def click_save_arg(self):
-        # 전처리에 사용한 인자들을 저장한다.
+        # 사용한 인자들을 저장한다.
 
         # 저장하기 전, lineEdit에 적혀 있는 값으로 arg 값을 update 한다.
         self.update_preprocess_args()
@@ -147,7 +155,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             json.dump(args, f, indent=4)
 
     def set_args_edit(self):
-        # 저장된 args의 값을 바탕으로 초기 preprocess의 args 값을 설정한다.
+        # 저장된 args의 값을 바탕으로 초기 args 값을 설정한다.
 
         # preprocess
         self.preprocess_lineEdit_filename.setText(str(self.args['preprocess'].filename))
@@ -227,11 +235,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.test_lineEdit_split_id.setValidator(int_validator)
     #################
 
+# Log가 출력되는 창에 클릭 한 번 했을 때, 커서 위치가 변경되지 않도록 한다.
+# 이게 없으면, 클릭했을 때 클릭한 곳 뒤에 log가 출력된다.
+def stay_click_position(self, event):
+    if event.button() == 1:  # Left mouse button clicked
+        cursor = self.cursorForPosition(event.pos())  # Get the cursor at the click position
+        original_position = cursor.position()  # Store the original cursor position
+        super().mousePressEvent(event)  # Call the default mousePressEvent to handle the click
+        cursor.setPosition(original_position)  # Restore the original cursor position
+        self.setTextCursor(cursor)  # Set the cursor back to the original position
+
+
+# Log가 출력되는 창에 더블클릭 한 번 했을 때, 커서 위치가 변경되지 않도록 한다.
+# 이게 없으면, 클릭했을 때 더블클릭한 곳 뒤에 log가 출력된다.
+def stay_doubleclick_position(self, event):
+    if event.button() == 1:  # Left mouse button clicked
+        cursor = self.cursorForPosition(event.pos())  # Get the cursor at the click position
+        original_position = cursor.position()  # Store the original cursor position
+        super().mouseDoubleClickEvent(event)  # Call the default mousePressEvent to handle the click
+        cursor.setPosition(original_position)  # Restore the original cursor position
+        self.setTextCursor(cursor)  # Set the cursor back to the original position
+
+
 def main():
-    import os
     app = QApplication()
-    file_path_args = '../saved_args.json'
-    window = MainWindow(args_path=file_path_args)
+    window = MainWindow(cur_path=os.path.dirname(os.path.dirname(__file__)))
+    window.textBrowser_log.mousePressEvent = types.MethodType(stay_click_position, window.textBrowser_log) # Instance화 된 class의 method를 override한다.
+    window.textBrowser_log.mouseDoubleClickEvent = types.MethodType(stay_doubleclick_position, window.textBrowser_log)
     window.show()
     sys.exit(app.exec())
 

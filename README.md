@@ -25,17 +25,29 @@ python main.py
         --standalone \
         --enable-plugin=pyside6 \
         --disable-console \
+        --remove-output \
+        --output-filename=my_gui.exe \
+        --windows-icon-from-ico=your-icon.png \
         gui_main.py
     ```
-    - `--standalone`: python interpreter 없이도 실행 가능하도록 binary file을 만듦.
-        - `--onefile`: `--standalone`과 유사한 역할을 하지만, 모든 것을 *.exe에 때려 박지만, virus로 인식된다.
-    - `--enable-plugin`: UI를 사용하려면 enable-plugin option을 사용해야 한다.
-    - `--disable-console`: UI를 사용하기 때문에 console 창이 열릴 필요가 없다.
+    - 필수
+        - `--standalone`: python interpreter 없이도 실행 가능하도록 binary file을 만듦.
+            - `--onefile`: `--standalone`과 유사한 역할을 하지만, 모든 것을 *.exe에 때려 박지만, virus로 인식된다.
+        - `--enable-plugin`: UI를 사용하려면 enable-plugin option을 사용해야 한다.
+        - `--disable-console`: UI를 사용하기 때문에 console 창이 열릴 필요가 없다.
+    - 선택
+        - `--remove-output`: *.exe 파일이 생성되면 build 폴더를 삭제한.
+        - `--output-filename`: *.exe 파일의 이름을 설정한다.
+        - `--windows-icon-from-ico`: *.exe 파일의 icon을 설정한다.
     <!-- - `--include-data-files`: argument가 저장된 파일을 exe 파일이 있는 폴더에 생성한다.
         - 상대 경로를 이용해 argument를 저장하고 불러올 수 있다.
         - main.dist 폴더 안에 args.json 파일이 생성되고 저장이 된다. -->
-2. gui_main.dist 폴더 안에 **gui_main.exe** 파일이 생성되는데 이것을 실행한다.
-    - 배경화면에 -.exe 바로가기를 만들면 폴더에 접근하지 않고 실행할 수 있습니다.
+    - 예시
+        ```bash 
+        python -m nuitka --standalone --enable-plugin=pyside6 --disable-console --remove-output --output-dir=my_dir --output-filename=my_exe gui_main.py
+        ```
+2. *.dist 폴더 안에 *.exe 파일이 생성되는데 이것을 실행한다.
+    - 배경화면에 *.exe 바로가기를 만들면 폴더에 접근하지 않고 실행할 수 있습니다.
 
 ```bash
 📦code  
